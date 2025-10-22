@@ -75,10 +75,17 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-amber-100 font-sans">
-      <div className="w-full max-w-6xl mx-auto bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-10 border-8 border-white/30">
-        {renderContent()}
+    <div className="min-h-screen flex flex-col p-4 bg-amber-100 font-sans">
+      <div className="flex-grow flex items-center justify-center">
+        <main className="w-full max-w-6xl mx-auto bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-10 border-8 border-white/30">
+          {renderContent()}
+        </main>
       </div>
+      <footer className="flex-shrink-0 text-center py-4">
+        <p className="text-sm text-amber-900/70">
+          오류 문의: <a href="mailto:nalrary@mensakorea.org" className="underline hover:text-orange-600 transition-colors">nalrary@mensakorea.org</a>
+        </p>
+      </footer>
     </div>
   );
 };
