@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Order, PlayerFractions, IngredientType, PlayerFractionInput } from '../types';
 import { INGREDIENTS_CONFIG, INGREDIENT_ORDER } from '../constants';
 
 interface Stage1Props {
   order: Order;
   onComplete: (fractions: PlayerFractions) => void;
+  onNewOrder: () => void;
 }
 
 const Customer: React.FC<{ order: Order }> = ({ order }) => {
@@ -36,15 +37,20 @@ const IngredientAsset: React.FC<{ type: IngredientType }> = ({ type }) => {
     return <div className={`${styles[type]} shadow-md`}></div>;
 };
 
+const initialFractions = INGREDIENT_ORDER.reduce((acc, key) => {
+  acc[key as IngredientType] = { numerator: '', denominator: '' };
+  return acc;
+}, {} as PlayerFractions);
 
-const Stage1: React.FC<Stage1Props> = ({ order, onComplete }) => {
-  const initialFractions = INGREDIENT_ORDER.reduce((acc, key) => {
-    acc[key as IngredientType] = { numerator: '', denominator: '' };
-    return acc;
-  }, {} as PlayerFractions);
 
+const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
   const [fractions, setFractions] = useState<PlayerFractions>(initialFractions);
   const [feedback, setFeedback] = useState<string>('');
+
+  useEffect(() => {
+    setFractions(initialFractions);
+    setFeedback('');
+  }, [order]);
 
   const handleInputChange = (ingredient: IngredientType, part: 'numerator' | 'denominator', value: string) => {
     setFractions(prev => ({
@@ -161,6 +167,12 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete }) => {
           className="px-8 py-3 bg-gradient-to-br from-green-400 to-green-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform"
         >
           주문 확인
+        </button>
+        <button
+          onClick={onNewOrder}
+          className="ml-4 px-8 py-3 bg-gradient-to-br from-blue-400 to-blue-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform"
+        >
+          다시 주문하기
         </button>
         {feedback && (
           <p className={`mt-4 text-lg font-semibold p-3 rounded-lg ${feedback.includes('완료') ? 'text-green-800 bg-green-200/80' : 'text-red-800 bg-red-200/80'}`}>

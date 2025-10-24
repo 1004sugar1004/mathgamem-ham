@@ -47,6 +47,10 @@ const App: React.FC = () => {
     setGameStage('stage1');
   }, []);
 
+  const handleNewOrder = useCallback(() => {
+    setOrder(generateOrder());
+  }, []);
+
   const handleStage1Complete = useCallback((fractions: PlayerFractions) => {
     setPlayerFractions(fractions);
     setGameStage('stage2');
@@ -59,7 +63,7 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (gameStage) {
       case 'stage1':
-        return <Stage1 order={order} onComplete={handleStage1Complete} />;
+        return <Stage1 order={order} onComplete={handleStage1Complete} onNewOrder={handleNewOrder} />;
       case 'stage2':
         if (!playerFractions) {
             startGame(); // Should not happen, but as a fallback
