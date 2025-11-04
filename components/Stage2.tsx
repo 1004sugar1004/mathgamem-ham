@@ -10,21 +10,21 @@ interface Stage2Props {
 
 const IngredientAsset: React.FC<{ type: IngredientType | 'bun-top' | 'bun-bottom' }> = ({ type }) => {
     const styles: Record<string, string> = {
-        egg: 'w-24 h-5 rounded-full shadow-inner border-2 border-yellow-500/50 bg-gradient-to-br from-yellow-200 to-yellow-400',
-        patty: 'w-28 h-6 rounded-md shadow-inner border-2 border-yellow-950/80 bg-gradient-to-br from-orange-900 to-yellow-950',
-        cheese: 'w-28 h-2 rounded-sm shadow-sm bg-gradient-to-b from-yellow-400 to-yellow-500',
-        cabbage: 'w-32 h-4 bg-gradient-to-b from-lime-300 to-green-400 opacity-90 rounded-[50%_50%_50%_50%_/_10%_10%_90%_90%]',
-        'bun-top': 'w-32 h-12 bg-gradient-to-b from-amber-300 to-amber-500 rounded-t-full border-b-4 border-amber-600/50 shadow-inner flex items-center justify-center space-x-1',
-        'bun-bottom': 'w-32 h-8 bg-gradient-to-t from-amber-300 to-amber-500 rounded-b-lg shadow-inner',
+        egg: 'w-24 h-5 rounded-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)] border-2 border-yellow-400/50 bg-gradient-to-br from-yellow-100 to-yellow-300',
+        patty: 'w-28 h-6 rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] border-2 border-orange-950/80 bg-gradient-to-br from-orange-800 to-orange-950',
+        cheese: 'w-28 h-2 rounded-sm shadow-lg bg-gradient-to-b from-yellow-400 to-yellow-500 transform -rotate-3',
+        cabbage: 'w-32 h-4 bg-gradient-to-b from-lime-300 to-green-400 opacity-90 rounded-[50%_50%_50%_50%_/_10%_10%_90%_90%] shadow-[inset_0_-3px_5px_rgba(0,0,0,0.1)]',
+        'bun-top': 'w-32 h-12 bg-gradient-to-b from-amber-300 to-amber-500 rounded-t-full border-b-4 border-amber-600/30 shadow-[inset_0_5px_10px_rgba(255,255,255,0.5),_0_3px_5px_rgba(0,0,0,0.2)] flex items-center justify-center space-x-1',
+        'bun-bottom': 'w-32 h-8 bg-gradient-to-t from-amber-400 to-amber-500 rounded-b-lg shadow-[inset_0_-5px_10px_rgba(0,0,0,0.15),_0_2px_3px_rgba(0,0,0,0.2)]',
     };
     if (type === 'bun-top') {
         return <div className={styles[type]}>
-            <div className="w-2 h-2 bg-white/70 rounded-full shadow"></div>
-            <div className="w-1 h-1 bg-white/70 rounded-full shadow"></div>
-            <div className="w-2 h-2 bg-white/70 rounded-full shadow"></div>
+            <div className="w-2 h-2 bg-amber-100/90 rounded-full shadow-sm"></div>
+            <div className="w-1.5 h-1.5 bg-amber-100/90 rounded-full shadow-sm"></div>
+            <div className="w-2 h-2 bg-amber-100/90 rounded-full shadow-sm"></div>
         </div>
     }
-    return <div className={`${styles[type]} shadow-md`}></div>;
+    return <div className={`${styles[type]} drop-shadow-md`}></div>;
 };
 
 const CompletedHamburgerGraphic: React.FC = () => (
@@ -41,9 +41,9 @@ const CompletedHamburgerGraphic: React.FC = () => (
 );
 
 const CompletedHamburgerView: React.FC = () => (
-    <div className="flex flex-col items-center justify-center py-10 animate-fade-in">
+    <div className="flex flex-col items-center justify-center py-10 animate-pop-in">
         <h3 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-teal-600 mb-6 drop-shadow-lg">맛있는 햄버거 완성!</h3>
-        <div className="transition-transform duration-500 transform hover:scale-110">
+        <div className="transition-transform duration-500 transform hover:scale-110 hover:rotate-3">
              <CompletedHamburgerGraphic />
         </div>
     </div>
@@ -213,7 +213,7 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
         <div className="flex flex-col items-center">
             {guidanceText && <p className="text-center text-xl font-bold text-blue-600 mb-2 h-8 animate-pulse">{guidanceText}</p>}
             <div 
-                className={`w-full flex flex-col-reverse items-center p-4 bg-sky-100/50 rounded-2xl border-dashed border-4 min-h-[400px] relative transition-all duration-300 ${isDragging ? 'border-green-500 bg-green-100/50 scale-105' : 'border-sky-400'}`}
+                className={`w-full flex flex-col-reverse items-center p-4 bg-sky-100/50 rounded-2xl border-dashed border-4 min-h-[400px] relative transition-all duration-300 ${isDragging ? 'border-green-400 bg-green-100/70 scale-105 ring-4 ring-offset-2 ring-green-400 animate-pulse' : 'border-sky-400'}`}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
@@ -248,7 +248,7 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
                         setIsDragging(true);
                     }}
                     onDragEnd={() => setIsDragging(false)}
-                    className="cursor-grab bg-white/70 p-4 rounded-xl shadow-md transition-all duration-200 hover:scale-110 hover:shadow-lg active:cursor-grabbing active:shadow-xl flex flex-col items-center w-full"
+                    className="cursor-grab bg-white/70 p-4 rounded-xl shadow-md transition-all duration-200 hover:scale-110 hover:-translate-y-1 hover:shadow-lg active:cursor-grabbing active:shadow-xl flex flex-col items-center w-full"
                 >
                     <IngredientAsset type={type} />
                     <p className="text-center text-sm font-semibold text-gray-700 mt-1">{type.includes('bun') ? '빵' : INGREDIENTS_CONFIG[type].name}</p>
@@ -262,26 +262,26 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
        <div className="mt-8 text-center">
         <button
           onClick={checkHamburger}
-          className="px-8 py-3 bg-gradient-to-br from-green-400 to-green-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform disabled:bg-gray-400"
+          className="px-8 py-3 bg-green-500 text-white text-xl font-bold rounded-full shadow-lg border-b-8 border-green-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-green-600 disabled:bg-gray-400 disabled:border-gray-500 disabled:cursor-not-allowed"
           disabled={stack.length === 0}
         >
           햄버거 완성!
         </button>
         <button
           onClick={removeLastIngredient}
-          className="ml-4 px-6 py-2 bg-gradient-to-br from-orange-400 to-orange-600 text-white text-lg font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform disabled:from-gray-400 disabled:bg-gray-400"
+          className="ml-4 px-6 py-2 bg-orange-500 text-white text-lg font-bold rounded-full shadow-lg border-b-8 border-orange-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-orange-600 disabled:bg-gray-400 disabled:border-gray-500 disabled:cursor-not-allowed"
           disabled={stack.length === 0}
         >
           재료 빼기
         </button>
         <button
           onClick={resetStack}
-          className="ml-4 px-6 py-2 bg-gradient-to-br from-red-400 to-red-600 text-white text-lg font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform"
+          className="ml-4 px-6 py-2 bg-red-500 text-white text-lg font-bold rounded-full shadow-lg border-b-8 border-red-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-red-600"
         >
           다시 쌓기
         </button>
         {feedback && (
-          <p className={`mt-4 text-lg font-semibold p-3 rounded-lg ${feedback.includes('완성') ? 'text-green-800 bg-green-200/80' : 'text-red-800 bg-red-200/80'}`}>
+          <p className={`mt-4 text-lg font-semibold p-3 rounded-lg animate-pop-in ${feedback.includes('완성') ? 'text-green-800 bg-green-200/80' : 'text-red-800 bg-red-200/80'}`}>
             {feedback}
           </p>
         )}

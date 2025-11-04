@@ -16,8 +16,8 @@ const Customer: React.FC<{ order: Order }> = ({ order }) => {
 
     return (
         <div className="flex items-center space-x-4 mb-6 p-4 bg-sky-100 rounded-2xl border-2 border-sky-300 shadow-lg">
-            <div className="text-6xl">👨‍🍳</div>
-            <div className="relative bg-white p-4 rounded-lg shadow-md">
+            <div className="text-7xl">👨‍🍳</div>
+            <div className="relative bg-white p-4 rounded-xl shadow-md">
                 <p className="text-lg text-gray-800">
                     "햄버거 만들어주세요! <br/>{orderText} 넣어주세요!"
                 </p>
@@ -29,10 +29,10 @@ const Customer: React.FC<{ order: Order }> = ({ order }) => {
 
 const IngredientAsset: React.FC<{ type: IngredientType }> = ({ type }) => {
     const styles: Record<string, string> = {
-        egg: 'w-24 h-5 rounded-full shadow-inner border-2 border-yellow-500/50 bg-gradient-to-br from-yellow-200 to-yellow-400',
-        patty: 'w-28 h-6 rounded-md shadow-inner border-2 border-yellow-950/80 bg-gradient-to-br from-orange-900 to-yellow-950',
-        cheese: 'w-28 h-2 rounded-sm shadow-sm bg-gradient-to-b from-yellow-400 to-yellow-500',
-        cabbage: 'w-32 h-4 bg-gradient-to-b from-lime-300 to-green-400 opacity-90 rounded-[50%_50%_50%_50%_/_10%_10%_90%_90%]',
+        egg: 'w-24 h-5 rounded-full shadow-[inset_0_2px_4px_rgba(0,0,0,0.15)] border-2 border-yellow-400/50 bg-gradient-to-br from-yellow-100 to-yellow-300',
+        patty: 'w-28 h-6 rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] border-2 border-orange-950/80 bg-gradient-to-br from-orange-800 to-orange-950',
+        cheese: 'w-28 h-2 rounded-sm shadow-lg bg-gradient-to-b from-yellow-400 to-yellow-500 transform -rotate-3',
+        cabbage: 'w-32 h-4 bg-gradient-to-b from-lime-300 to-green-400 opacity-90 rounded-[50%_50%_50%_50%_/_10%_10%_90%_90%] shadow-[inset_0_-3px_5px_rgba(0,0,0,0.1)]',
     };
     return <div className={`${styles[type]} shadow-md`}></div>;
 };
@@ -104,7 +104,7 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
                {INGREDIENT_ORDER.map(key => {
                    const type = key as IngredientType;
                    return (
-                     <div key={type} className="flex flex-col items-center p-3 bg-white/60 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                     <div key={type} className="flex flex-col items-center p-3 bg-white/60 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
                         <IngredientAsset type={type} />
                         <p className="mt-2 font-semibold text-gray-700">{INGREDIENTS_CONFIG[type].name}</p>
                         <p className="text-sm text-gray-500">총 {INGREDIENTS_CONFIG[type].total}개</p>
@@ -131,7 +131,7 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
               {INGREDIENT_ORDER.map(key => {
                 const type = key as IngredientType;
                 return (
-                  <tr key={type} className="border-b border-stone-200 hover:bg-stone-100 transition-colors duration-200">
+                  <tr key={type} className="border-b border-stone-200 even:bg-stone-100/80 hover:bg-stone-100 transition-colors duration-200">
                     <td className="py-4 font-semibold">{INGREDIENTS_CONFIG[type].name}</td>
                     <td>{INGREDIENTS_CONFIG[type].total}개</td>
                     <td className="font-bold text-blue-600">{order[type]}개</td>
@@ -139,7 +139,7 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
                       <div className="flex flex-col items-center">
                         <input
                           type="number"
-                          className="w-16 text-center border-2 border-stone-300 rounded-lg shadow-inner text-lg font-bold bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition"
+                          className="w-16 text-center border-2 border-stone-300 rounded-lg shadow-inner text-lg font-bold bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:shadow-md transition"
                           value={fractions[type].numerator}
                           onChange={(e) => handleInputChange(type, 'numerator', e.target.value)}
                           aria-label={`${INGREDIENTS_CONFIG[type].name} numerator`}
@@ -147,7 +147,7 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
                         <div className="w-16 h-0.5 bg-gray-800 my-1"></div>
                         <input
                           type="number"
-                          className="w-16 text-center border-2 border-stone-300 rounded-lg shadow-inner text-lg font-bold bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition"
+                          className="w-16 text-center border-2 border-stone-300 rounded-lg shadow-inner text-lg font-bold bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-300 focus:shadow-md transition"
                           value={fractions[type].denominator}
                           onChange={(e) => handleInputChange(type, 'denominator', e.target.value)}
                           aria-label={`${INGREDIENTS_CONFIG[type].name} denominator`}
@@ -165,18 +165,18 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
       <div className="mt-8 text-center">
         <button
           onClick={checkAnswer}
-          className="px-8 py-3 bg-gradient-to-br from-green-400 to-green-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform"
+          className="px-8 py-3 bg-green-500 text-white text-xl font-bold rounded-full shadow-lg border-b-8 border-green-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300"
         >
           주문 확인
         </button>
         <button
           onClick={onNewOrder}
-          className="ml-4 px-8 py-3 bg-gradient-to-br from-blue-400 to-blue-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 transition-transform"
+          className="ml-4 px-8 py-3 bg-blue-500 text-white text-xl font-bold rounded-full shadow-lg border-b-8 border-blue-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           다시 주문하기
         </button>
         {feedback && (
-          <p className={`mt-4 text-lg font-semibold p-3 rounded-lg ${feedback.includes('완료') ? 'text-green-800 bg-green-200/80' : 'text-red-800 bg-red-200/80'}`}>
+          <p className={`mt-4 text-lg font-semibold p-3 rounded-lg animate-pop-in ${feedback.includes('완료') ? 'text-green-800 bg-green-200/80' : 'text-red-800 bg-red-200/80'}`}>
             {feedback}
           </p>
         )}

@@ -6,13 +6,14 @@ import Stage2 from './components/Stage2';
 
 const WelcomeScreen: React.FC<{ onStart: () => void }> = ({ onStart }) => (
     <div className="text-center flex flex-col items-center justify-center p-8">
-        <h1 className="text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-600 mb-4 drop-shadow-lg">
-            햄버거 만들기 🍔
+        <h1 className="text-6xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-600 mb-4 drop-shadow-[0_4px_3px_rgba(0,0,0,0.2)]">
+            햄버거 만들기
         </h1>
+        <div className="text-8xl my-6 animate-bounce">🍔</div>
         <p className="text-xl md:text-2xl text-amber-800 mb-10">분수와 함께 맛있는 햄버거를 만들어봐요!</p>
         <button
             onClick={onStart}
-            className="px-10 py-5 bg-gradient-to-br from-green-400 to-green-600 text-white text-3xl font-bold rounded-full shadow-xl transform hover:scale-110 hover:shadow-2xl transition-all duration-300 ease-in-out ring-4 ring-green-500/50 hover:ring-8"
+            className="px-10 py-5 bg-green-500 text-white text-3xl font-bold rounded-full shadow-lg border-b-8 border-green-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300"
         >
             게임 시작!
         </button>
@@ -28,7 +29,7 @@ const CompletionScreen: React.FC<{ onPlayAgain: () => void }> = ({ onPlayAgain }
         <div className="text-9xl mb-8 animate-bounce">🥳</div>
         <button
             onClick={onPlayAgain}
-            className="px-10 py-5 bg-gradient-to-br from-blue-400 to-blue-600 text-white text-3xl font-bold rounded-full shadow-xl transform hover:scale-110 hover:shadow-2xl transition-all duration-300 ease-in-out ring-4 ring-blue-500/50 hover:ring-8"
+            className="px-10 py-5 bg-blue-500 text-white text-3xl font-bold rounded-full shadow-lg border-b-8 border-blue-700 transform transition-all duration-150 hover:-translate-y-1 active:translate-y-0.5 active:border-b-4 active:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
             다시 만들기
         </button>
@@ -81,7 +82,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col p-4 bg-amber-100 font-sans">
       <div className="flex-grow flex items-center justify-center">
-        <main className="w-full max-w-6xl mx-auto bg-white/70 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-10 border-8 border-white/30">
+        <main className="w-full max-w-6xl mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl shadow-amber-900/10 p-6 md:p-10 border-4 border-white/50">
           {renderContent()}
         </main>
       </div>
