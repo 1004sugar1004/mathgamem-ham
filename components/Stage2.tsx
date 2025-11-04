@@ -172,7 +172,7 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl font-bold text-amber-800 mb-2">2단계: 햄버거를 만들어요!</h2>
-      <p className="text-gray-600 mb-6">주문서를 보고 알맞은 재료를 순서대로 쌓아주세요.</p>
+      <p className="text-gray-600 mb-6">주문서를 보고 달걀부침부터 순서대로 재료를 쌓아주세요.</p>
       
       {isBurgerComplete ? (
         <CompletedHamburgerView />
@@ -185,6 +185,7 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
                   <tr className="border-b-4 border-stone-300 bg-stone-200/70">
                     <th className="py-2 text-sm font-semibold text-gray-600">재료</th>
                     <th className="py-2 text-sm font-semibold text-gray-600">전체 수량</th>
+                    <th className="py-2 text-sm font-semibold text-gray-600">주문량</th>
                     <th className="py-2 text-sm font-semibold text-gray-600">분수 표현</th>
                   </tr>
                 </thead>
@@ -195,6 +196,7 @@ const Stage2: React.FC<Stage2Props> = ({ order, playerFractions, onComplete }) =
                         <td className="py-3 text-lg">
                            <span className="text-gray-600">{INGREDIENTS_CONFIG[key].total}개</span>
                         </td>
+                        <td className="py-3 text-2xl font-bold text-blue-600">?</td>
                         <td className="py-3">
                            <div className="flex flex-col items-center justify-center leading-none text-gray-800">
                               <span className="text-lg font-bold">{playerFractions[key].numerator}</span>

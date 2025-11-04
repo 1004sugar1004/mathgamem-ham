@@ -117,6 +117,7 @@ const Stage1: React.FC<Stage1Props> = ({ order, onComplete, onNewOrder }) => {
         
         <div className="p-4 bg-stone-50 rounded-xl shadow-lg border border-stone-200">
           <h3 className="text-2xl font-bold text-center text-gray-700 mb-4">주문서 📝</h3>
+          <p className="text-center text-gray-600 mb-4">주문수량을 분수로 나타내 봅시다.</p>
           <table className="w-full text-center">
             <thead>
               <tr className="border-b-4 border-stone-300 bg-stone-200/70">
